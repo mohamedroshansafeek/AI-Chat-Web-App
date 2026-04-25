@@ -12,6 +12,7 @@ function App() {
   const [selectedModel, setSelectedModel] = useState('neural-nexus');
   const [isTyping, setIsTyping] = useState(false);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   // If no chats exist, optionally create one on mount
   useEffect(() => {
     if (chats.length === 0) {
@@ -42,13 +43,20 @@ function App() {
   };
 
   return (
-    <div className="flex h-screen w-full bg-white overflow-hidden font-sans">
-      <Sidebar />
-      <div className="flex-1 flex flex-col h-full bg-white">
+    <div className="flex h-screen w-full bg-white overflow-hidden font-sans relative">
+      {isSidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black/20 z-40 md:hidden backdrop-blur-sm transition-opacity"
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
+      <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
+      <div className="flex-1 flex flex-col h-full bg-white min-w-0">
         <Header 
           selectedModel={selectedModel} 
           setSelectedModel={setSelectedModel} 
           onOpenSettings={() => setIsSettingsOpen(true)}
+          onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
         />
         <ChatArea chat={activeChat} />
         {activeChat && (

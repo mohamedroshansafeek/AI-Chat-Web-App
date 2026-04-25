@@ -1,5 +1,5 @@
 import React from 'react';
-import { Settings, User, Sparkles } from 'lucide-react';
+import { Settings, User, Sparkles, Menu } from 'lucide-react';
 
 const AI_ENGINES = [
   { id: 'neural-nexus', name: 'Neural Nexus', icon: Sparkles },
@@ -8,10 +8,16 @@ const AI_ENGINES = [
   { id: 'logic-core', name: 'Logic Core', icon: Sparkles },
 ];
 
-export default function Header({ selectedModel, setSelectedModel, onOpenSettings }) {
+export default function Header({ selectedModel, setSelectedModel, onOpenSettings, onToggleSidebar }) {
   return (
-    <header className="h-16 border-b border-gray-200 bg-white flex items-center justify-between px-6 shrink-0">
-      <div className="flex items-center gap-4">
+    <header className="h-16 border-b border-gray-200 bg-white flex items-center justify-between px-4 md:px-6 shrink-0">
+      <div className="flex items-center gap-2 md:gap-4">
+        <button
+          onClick={onToggleSidebar}
+          className="p-2 -ml-2 mr-1 text-gray-500 hover:bg-gray-100 rounded-lg md:hidden transition-colors"
+        >
+          <Menu size={20} />
+        </button>
         <label htmlFor="ai-model" className="text-sm font-medium text-gray-500 hidden md:block">
           AI Engine:
         </label>
@@ -20,7 +26,7 @@ export default function Header({ selectedModel, setSelectedModel, onOpenSettings
             id="ai-model"
             value={selectedModel}
             onChange={(e) => setSelectedModel(e.target.value)}
-            className="appearance-none bg-gray-50 border border-gray-200 text-gray-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-48 p-2 pr-8 font-medium cursor-pointer"
+            className="appearance-none bg-gray-50 border border-gray-200 text-gray-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-40 md:w-48 p-2 pr-8 font-medium cursor-pointer"
           >
             {AI_ENGINES.map((engine) => (
               <option key={engine.id} value={engine.id}>

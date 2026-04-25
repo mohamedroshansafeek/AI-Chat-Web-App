@@ -3,11 +3,11 @@ import { Plus, Bot } from 'lucide-react';
 import { useChatStore } from '../store/chatStore';
 import ChatItem from './ChatItem';
 
-export default function Sidebar() {
+export default function Sidebar({ isOpen, onClose }) {
   const { chats, createChat } = useChatStore();
 
   return (
-    <div className="w-64 md:w-72 flex-shrink-0 bg-gray-50 border-r border-gray-200 flex flex-col h-full">
+    <div className={`fixed inset-y-0 left-0 z-50 w-64 md:w-72 bg-gray-50 border-r border-gray-200 flex flex-col h-full transform transition-transform duration-300 ease-in-out md:relative md:translate-x-0 ${isOpen ? 'translate-x-0 shadow-2xl md:shadow-none' : '-translate-x-full'}`}>
       {/* Sidebar Header */}
       <div className="p-4 flex items-center gap-3 border-b border-gray-200">
         <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white shrink-0 shadow-sm">
